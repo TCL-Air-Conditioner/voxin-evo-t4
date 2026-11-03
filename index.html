@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoxIN EVO T4 | Operation Demonstrations</title>
+<style>
+
+:root {
+    --navy: #17345f;
+    --blue-gray: #637b98;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #eef6ff 100%
+    );
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 20px;
+}
+
+.logo {
+    width: 90px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    color: var(--navy);
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.video-title {
+    color: var(--blue-gray);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.video-box {
+    width: 90vw;
+    max-width: 850px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .logo {
+        width: 75px;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .video-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+}
+
+
+/* Final playback behavior; retain the product's existing visual template. */
+[hidden] { display: none !important; }
+.video-stage { position: relative; width: 100%; height: 100%; }
+.video-stage video { display: block; background: #000; }
+.video-preview { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; overflow: hidden; background: #000; cursor: pointer; }
+.video-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.video-preview span { position: relative; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding-left: 4px; border-radius: 50%; background: rgba(23,52,95,.88); color: #fff; font-size: 30px; pointer-events: none; }
+.video-preview:focus-visible { outline: 3px solid #2566a7; outline-offset: 3px; }
+.video-status { width: 90vw; max-width: 850px; margin: 12px auto 0; color: var(--blue-gray); font-size: 14px; line-height: 1.5; }
+.video-status button, .video-status a { margin: 8px 5px 0; font: inherit; }
+.video-status button { padding: 8px 14px; border: 1px solid #c6d9ed; background: #fff; color: var(--navy); cursor: pointer; }
+.video-status a { color: var(--navy); display: inline-block; padding: 8px; }
+.video-directory { width: 90vw; max-width: 850px; margin: 26px auto 0; text-align: left; }
+.video-directory h2 { font-size: 18px; margin: 0 0 12px; color: var(--navy); }
+.video-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.video-link { display: flex; align-items: center; min-height: 46px; padding: 10px 12px; border: 1px solid #d5e3f2; color: var(--navy); background: rgba(255,255,255,.8); text-decoration: none; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.video-link[aria-current="page"] { background: #e3f0ff; border-color: #8fb5df; font-weight: 600; }
+.video-link:hover { background: #edf6ff; }
+.video-link:focus-visible, .video-status button:focus-visible { outline: 3px solid #2566a7; outline-offset: 2px; }
+@media (max-width: 600px) {
+ .video-preview span { width: 56px; height: 56px; font-size: 26px; }
+ .video-directory { margin-top: 22px; }
+ .video-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .video-link { padding: 10px; font-size: 13px; }
+}
+
+.video-unavailable { display: grid; place-items: center; height: 100%; padding: 20px; background: #e6f1fb; color: var(--navy); }
+</style>
+</head>
+<body>
+<main class="container">
+    <img class="logo" src="./brand-logo.png" alt="TCL">
+    <h1>VoxIN EVO T4</h1>
+    <nav class="video-directory" aria-label="VoxIN EVO T4 video directory">
+        <h2>Operation Demonstrations</h2>
+        <div class="video-links">
+        <a class="video-link" href="./deflector-assembly-removal/">Deflector Assembly Removal</a>
+        <a class="video-link" href="./deflector-assembly-installation/">Deflector Assembly Installation</a>
+        <a class="video-link" href="./healthy-filter/">Healthy Filter</a>
+        <a class="video-link" href="./wide-range-dual-louver-design/">Wide Range Dual-louver Design</a>
+        <a class="video-link" href="./gentle-breeze/">Gentle Breeze</a>
+        <a class="video-link" href="./self-cleaning/">Self-Cleaning</a>
+        <a class="video-link" href="./gen-mode/">GEN Mode</a>
+        <a class="video-link" href="./horizontal-swing/">Horizontal Swing</a>
+        <a class="video-link" href="./app-connection/">APP Connection</a>
+        <a class="video-link" href="./smart-energy-saving/">Smart Energy Saving</a>
+        <a class="video-link" href="./smart-voice-control/">Smart Voice Control</a>
+        <a class="video-link" href="./voice-language-switching/">Voice Language Switching</a>
+        </div>
+    </nav>
+</main>
+</body>
+</html>

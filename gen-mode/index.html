@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VoxIN EVO T4 | GEN Mode</title>
+
+<style>
+
+:root {
+    --navy: #17345f;
+    --blue-gray: #637b98;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #eef6ff 100%
+    );
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 20px;
+}
+
+.logo {
+    width: 90px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    color: var(--navy);
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.video-title {
+    color: var(--blue-gray);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.video-box {
+    width: 90vw;
+    max-width: 850px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .logo {
+        width: 75px;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .video-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+}
+
+
+/* Final playback behavior; retain the product's existing visual template. */
+[hidden] { display: none !important; }
+.video-stage { position: relative; width: 100%; height: 100%; }
+.video-stage video { display: block; background: #000; }
+.video-preview { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; overflow: hidden; background: #000; cursor: pointer; }
+.video-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.video-preview span { position: relative; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding-left: 4px; border-radius: 50%; background: rgba(23,52,95,.88); color: #fff; font-size: 30px; pointer-events: none; }
+.video-preview:focus-visible { outline: 3px solid #2566a7; outline-offset: 3px; }
+.video-status { width: 90vw; max-width: 850px; margin: 12px auto 0; color: var(--blue-gray); font-size: 14px; line-height: 1.5; }
+.video-status button, .video-status a { margin: 8px 5px 0; font: inherit; }
+.video-status button { padding: 8px 14px; border: 1px solid #c6d9ed; background: #fff; color: var(--navy); cursor: pointer; }
+.video-status a { color: var(--navy); display: inline-block; padding: 8px; }
+.video-directory { width: 90vw; max-width: 850px; margin: 26px auto 0; text-align: left; }
+.video-directory h2 { font-size: 18px; margin: 0 0 12px; color: var(--navy); }
+.video-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.video-link { display: flex; align-items: center; min-height: 46px; padding: 10px 12px; border: 1px solid #d5e3f2; color: var(--navy); background: rgba(255,255,255,.8); text-decoration: none; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.video-link[aria-current="page"] { background: #e3f0ff; border-color: #8fb5df; font-weight: 600; }
+.video-link:hover { background: #edf6ff; }
+.video-link:focus-visible, .video-status button:focus-visible { outline: 3px solid #2566a7; outline-offset: 2px; }
+@media (max-width: 600px) {
+ .video-preview span { width: 56px; height: 56px; font-size: 26px; }
+ .video-directory { margin-top: 22px; }
+ .video-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .video-link { padding: 10px; font-size: 13px; }
+}
+
+.video-unavailable { display: grid; place-items: center; height: 100%; padding: 20px; background: #e6f1fb; color: var(--navy); }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <img 
+    class="logo" 
+    src="../brand-logo.png" alt="TCL"
+    >
+
+    <h1>
+        VoxIN EVO T4
+    </h1>
+
+    <div class="video-title">
+        GEN Mode
+    </div>
+
+    <div class="video-box">
+        <div class="video-stage">
+            <video id="trainingVideo" controls preload="auto" playsinline webkit-playsinline aria-label="GEN Mode video">
+                <source
+            src="gen-mode.mp4"
+            type="video/mp4"
+            >
+                Your browser does not support video playback.
+            </video>
+            <button id="videoPreview" class="video-preview" type="button" aria-label="Play GEN Mode video" hidden>
+                <!-- VIDEO_COVER -->
+                <span aria-hidden="true">&#9654;</span>
+            </button>
+        </div>
+    </div>
+    <div id="videoStatus" class="video-status" role="status" aria-live="polite" hidden>
+        <div id="statusText"></div>
+        <button id="retryVideo" type="button" hidden>Retry playback</button>
+        <a id="directVideo" href="gen-mode.mp4" target="_blank" rel="noopener" hidden>Open MP4 directly</a>
+    </div>
+    <nav class="video-directory" id="videoDirectory" aria-label="VoxIN EVO T4 video directory">
+        <h2>More Operation Videos</h2>
+        <div class="video-links">
+            <a class="video-link" href="../deflector-assembly-removal/">Deflector Assembly Removal</a>
+            <a class="video-link" href="../deflector-assembly-installation/">Deflector Assembly Installation</a>
+            <a class="video-link" href="../healthy-filter/">Healthy Filter</a>
+            <a class="video-link" href="../wide-range-dual-louver-design/">Wide Range Dual-louver Design</a>
+            <a class="video-link" href="../gentle-breeze/">Gentle Breeze</a>
+            <a class="video-link" href="../self-cleaning/">Self-Cleaning</a>
+            <a class="video-link" href="../gen-mode/" aria-current="page">GEN Mode</a>
+            <a class="video-link" href="../horizontal-swing/">Horizontal Swing</a>
+            <a class="video-link" href="../app-connection/">APP Connection</a>
+            <a class="video-link" href="../smart-energy-saving/">Smart Energy Saving</a>
+            <a class="video-link" href="../smart-voice-control/">Smart Voice Control</a>
+            <a class="video-link" href="../voice-language-switching/">Voice Language Switching</a>
+        </div>
+    </nav>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  const video = document.getElementById('trainingVideo');
+  const preview = document.getElementById('videoPreview');
+  const status = document.getElementById('videoStatus');
+  const text = document.getElementById('statusText');
+  const retry = document.getElementById('retryVideo');
+  const direct = document.getElementById('directVideo');
+  let timer;
+  let requested = false;
+  let hasError = false;
+  let pictureIssue = false;
+  let resumeAt = 0;
+  let previewRemoved = false;
+  let pictureTimer;
+  let frameRequest;
+
+  function removePreview() {
+    // Do not depend on a mobile player's internal poster-hiding behavior.
+    if (preview && !previewRemoved) {
+      previewRemoved = true;
+      preview.remove();
+    }
+    video.removeAttribute('poster');
+  }
+  function stopPictureWatch() {
+    window.clearTimeout(pictureTimer);
+    if (frameRequest !== undefined && typeof video.cancelVideoFrameCallback === 'function') {
+      video.cancelVideoFrameCallback(frameRequest);
+      frameRequest = undefined;
+    }
+  }
+  function watchPicture() {
+    stopPictureWatch();
+    const startedAt = video.currentTime;
+    const canObserveFrames = typeof video.requestVideoFrameCallback === 'function';
+    video.dataset.pictureState = 'waiting';
+    if (canObserveFrames) {
+      const onFrame = function (_, metadata) {
+        frameRequest = undefined;
+        if (!requested || video.paused) return;
+        if (metadata.mediaTime > startedAt + 0.04) {
+          video.dataset.pictureState = 'rendered';
+          pictureIssue = false;
+          window.clearTimeout(pictureTimer);
+          hideStatus();
+        } else {
+          frameRequest = video.requestVideoFrameCallback(onFrame);
+        }
+      };
+      frameRequest = video.requestVideoFrameCallback(onFrame);
+    }
+    pictureTimer = window.setTimeout(function () {
+      if (!requested || video.paused || video.ended || document.hidden || hasError) return;
+      if (video.currentTime > startedAt + 0.5 &&
+          ((canObserveFrames && video.dataset.pictureState !== 'rendered') || video.videoWidth === 0)) {
+        pictureIssue = true;
+        video.dataset.pictureState = 'no-picture';
+        showStatus('The video picture could not be confirmed. Retry or open the MP4 directly.', true);
+      }
+    }, 5000);
+  }
+  if (preview) {
+    preview.hidden = false;
+    preview.addEventListener('click', function () {
+      if (previewRemoved) return;
+      removePreview();
+      requested = true;
+      showStatus('Starting video…', false);
+      startPlayback();
+    });
+  }
+
+  function clearTimer() { window.clearTimeout(timer); }
+  function hideStatus() {
+    clearTimer();
+    if (!hasError && !pictureIssue) status.hidden = true;
+  }
+  function showStatus(value, canRetry) {
+    text.textContent = value;
+    retry.hidden = !canRetry;
+    direct.hidden = !canRetry;
+    status.hidden = false;
+  }
+  function loading() {
+    if (!requested || video.paused || video.ended || hasError || pictureIssue) return;
+    clearTimer();
+    showStatus('Buffering video…', false);
+    timer = window.setTimeout(function () {
+      if (requested && !video.paused && video.readyState < 3 && !hasError && !pictureIssue) {
+        showStatus('Loading is taking longer. You can keep waiting or retry.', true);
+      }
+    }, 8000);
+  }
+  function failed() {
+    clearTimer();
+    stopPictureWatch();
+    removePreview();
+    hasError = true;
+    const unsupported = video.error && (video.error.code === 3 || video.error.code === 4);
+    showStatus(unsupported
+      ? 'This browser could not play the video. Retry or open the MP4 directly.'
+      : 'Video could not load. Check your connection and retry.', true);
+  }
+  function startPlayback() {
+    // Called synchronously from a user gesture; never play/pause to create a preview.
+    const request = video.play();
+    if (request && request.catch) request.catch(function (error) {
+      if (error.name === 'AbortError') return;
+      if (error.name === 'NotAllowedError') {
+        showStatus('Tap the video’s play button to start playback.', false);
+      } else {
+        failed();
+      }
+    });
+  }
+  video.addEventListener('play', function () {
+    removePreview();
+    requested = true;
+    hasError = false;
+    watchPicture();
+    if (video.readyState < 3) loading();
+  });
+  video.addEventListener('playing', function () {
+    removePreview();
+    hasError = false;
+    if (typeof video.requestVideoFrameCallback !== 'function' || video.dataset.pictureState === 'rendered') {
+      hideStatus();
+    }
+  });
+  video.addEventListener('waiting', loading);
+  video.addEventListener('stalled', loading);
+  video.addEventListener('pause', function () { requested = false; stopPictureWatch(); hideStatus(); });
+  video.addEventListener('ended', function () { requested = false; stopPictureWatch(); hideStatus(); });
+  video.addEventListener('error', failed);
+  const source = video.querySelector('source');
+  if (source) source.addEventListener('error', failed);
+  video.addEventListener('loadedmetadata', function () {
+    if (resumeAt > 0 && Number.isFinite(video.duration)) {
+      video.currentTime = Math.min(resumeAt, Math.max(0, video.duration - 0.1));
+      resumeAt = 0;
+    }
+  });
+  retry.addEventListener('click', function () {
+    clearTimer();
+    stopPictureWatch();
+    removePreview();
+    resumeAt = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+    hasError = false;
+    pictureIssue = false;
+    requested = true;
+    showStatus('Loading video…', false);
+    // Only an explicit retry resets the resource; ordinary playback keeps its buffer.
+    video.load();
+    startPlayback();
+  });
+  if (video.error) failed();
+
+  // Warm only a page the viewer points to, after the current video has a buffer.
+  // Keep stable URLs so the browser can reuse its normal HTTP cache and ranges.
+  const warmed = new Set();
+  const directory = document.getElementById('videoDirectory');
+  function warmPage(event) {
+    const link = event.target.closest('a.video-link');
+    if (!link || link.getAttribute('aria-current') === 'page') return;
+    const connection = navigator.connection;
+    if (connection && (connection.saveData || /(^|-)2g$/.test(connection.effectiveType))) return;
+    if (document.hidden || hasError || video.readyState < 3 || warmed.size >= 2) return;
+    let enough = video.ended;
+    for (let i = 0; i < video.buffered.length; i += 1) {
+      if (video.buffered.start(i) <= video.currentTime && video.buffered.end(i) > video.currentTime) {
+        enough = enough || video.buffered.end(i) >= Math.min(video.duration - 0.1, video.currentTime + 8);
+      }
+    }
+    if (!enough || warmed.has(link.href)) return;
+    warmed.add(link.href);
+    const hint = document.createElement('link');
+    hint.rel = 'prefetch';
+    hint.as = 'document';
+    hint.href = link.href;
+    document.head.appendChild(hint);
+  }
+  directory.addEventListener('pointerover', warmPage);
+  directory.addEventListener('focusin', warmPage);
+  directory.addEventListener('touchstart', warmPage, { passive: true });
+})();
+</script>
+
+</body>
+</html>
