@@ -27,13 +27,14 @@ def read_cover(video):
 
 
 def build(destination):
+    templates = sorted(ROOT.glob("*/index.html"))
     destination.mkdir(parents=True, exist_ok=True)
     if any(destination.iterdir()):
         raise ValueError("The destination must be empty.")
     for name in ("index.html", "brand-logo.png"):
         shutil.copyfile(ROOT / name, destination / name)
 
-    for template in sorted(ROOT.glob("*/index.html")):
+    for template in templates:
         slug = template.parent.name
         video = template.parent / f"{slug}.mp4"
         page = template.read_text(encoding="utf-8")
